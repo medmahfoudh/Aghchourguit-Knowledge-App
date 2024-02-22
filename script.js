@@ -23,18 +23,53 @@ document.addEventListener("DOMContentLoaded", function() {
       ctx.filter = 'none';
   
       // Draw logo
-      ctx.drawImage(logo, 10, 10);
+      ctx.drawImage(logo, canvas.width - 230, 1);
   
       // Draw date
       const today = new Date();
-      ctx.fillText(today.toDateString(), canvas.width - 150, 20);
+      ctx.fillText(today.toDateString(), 10, 10);
   
-      // Draw text in the middle with larger font size
+      // Get input text
       const text = textInput.value;
-      ctx.font = 'bold 40px Arial';
-      ctx.textAlign = 'center';
-      ctx.fillStyle = '#ffffff';
-      ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+  
+      // Set initial font size and max width
+      let fontSize = 60;
+      const maxWidth = canvas.width - 40; // Padding
+  
+      // Split text into multiple lines
+    //   let words = text.split(' ');
+    //   let lines = [];
+    //   let currentLine = '';
+  
+    //   for (let word of words) {
+    //     let width = ctx.measureText(currentLine + ' ' + word).width;
+    //     if (width < maxWidth) {
+    //       currentLine += (currentLine === '' ? '' : ' ') + word;
+    //     } else {
+    //       lines.push(currentLine);
+    //       currentLine = word;
+    //     }
+    //   }
+    //   lines.push(currentLine);
+  
+      // Calculate font size for multiline text
+    //   while (fontSize > 10) {
+    //     ctx.font = `${fontSize}px Arial`;
+    //     let totalHeight = lines.length * (fontSize * 1.2); // Adjust line height as needed
+    //     if (totalHeight < canvas.height - 40) { // Padding
+    //       break;
+    //     }
+    //     fontSize--;
+    //   }
+  
+    //   // Draw multiline text
+    //   ctx.textAlign = 'center';
+    //   ctx.fillStyle = '#ffffff';
+    //   let y = (canvas.height - lines.length * (fontSize * 1.2)) / 2 + fontSize; // Vertical alignment
+    //   lines.forEach(function(line) {
+    //     ctx.fillText(line, canvas.width / 2, y);
+    //     y += fontSize * 1.2; // Adjust line height as needed
+    //   });
   
       // Convert canvas to image and download
       canvas.toBlob(function(blob) {

@@ -1,39 +1,50 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const imageInput = document.getElementById("imageInput");
-    const resultCanvas = document.getElementById("resultCanvas");
-    const resultContext = resultCanvas.getContext("2d");
-
-    imageInput.addEventListener("change", handleImageUpload);
-
-    function handleImageUpload() {
-        const inputImage = imageInput.files[0];
-        
-        if (inputImage) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const image = new Image();
-                image.src = e.target.result;
-
-                image.onload = function() {
-                    standardizeImage(image);
-                };
-            };
-
-            reader.readAsDataURL(inputImage);
-        }
-    }
-
-    function standardizeImage(image) {
-        const size = Math.max(image.width, image.height);
-        resultCanvas.width = size;
-        resultCanvas.height = size;
-
-        resultContext.filter = "blur(70%)";
-        resultContext.drawImage(image, 0, 0, size, size);
-
-        // Display the processed image in the result container
-        const resultContainer = document.getElementById("resultContainer");
-        resultContainer.style.display = "block";
-    }
-});
+    const backgroundImage = document.getElementById('background-image');
+    const logo = document.getElementById('logo');
+    const date = document.getElementById('date');
+    const textInput = document.getElementById('text-input');
+    const generateBtn = document.getElementById('generate-btn');
+  
+    generateBtn.addEventListener('click', function() {
+      // Generate image with text
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+  
+      // Set canvas size to match background image
+      canvas.width = backgroundImage.width;
+      canvas.height = backgroundImage.height;
+  
+      // Draw background image
+      ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  
+      // Apply blur effect to the background
+      ctx.filter = 'blur(5px)';
+      ctx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+      ctx.filter = 'none';
+  
+      // Draw logo
+      ctx.drawImage(logo, 10, 10);
+  
+      // Draw date
+      const today = new Date();
+      ctx.fillText(today.toDateString(), canvas.width - 150, 20);
+  
+      // Draw text in the middle with larger font size
+      const text = textInput.value;
+      ctx.font = 'bold 40px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(text, canvas.width / 2, canvas.height / 2);
+  
+      // Convert canvas to image and download
+      canvas.toBlob(function(blob) {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'generated-image.png';
+        a.click();
+        URL.revokeObjectURL(url);
+      }, 'image/png', 0.7); // Adjust quality as needed
+    });
+  });
+  

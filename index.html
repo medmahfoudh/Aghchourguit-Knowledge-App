@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Image Standardization</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Generator</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <input type="file" id="imageInput" accept="image/*">
-    <div id="resultContainer">
-        <canvas id="resultCanvas" width="200" height="200"></canvas>
+  <div id="container">
+    <div id="image-container">
+      <div id="background-container">
+        <img id="background-image" src="1.jpg" alt="Background Image">
+      </div>
+      <img id="logo" src="assets/logo.png" alt="Logo">
+      <div id="date"></div>
+      <div id="text-container">
+        <textarea id="text-input" placeholder="Enter your text here..."></textarea>
+        <button id="generate-btn">Generate Image</button>
+      </div>
     </div>
-    <script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
